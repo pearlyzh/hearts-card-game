@@ -32,6 +32,7 @@ public class Card extends GameElement{
     private final int value, suit;
     private int orientation = Hand.SOUTH;
     private boolean isUp = false, mouseOver = false, selected = false;
+    private boolean toPlay = false;
     private Image upImage, downImage;
     private AffineTransform transform;
     
@@ -73,16 +74,27 @@ public class Card extends GameElement{
 
         if (upImage == null)
         {
-            System.out.println("../gui/images/" + Integer.toString(value) + s + ".png");
+            System.out.println("src/lnm_hearts/gui/images/" + Integer.toString(value) + s + ".png");
         }
         else
         {
-            System.out.println("../gui/images/" + Integer.toString(value) + s + ".png" + "   =====nghia dep trai");
+            System.out.println("src/lnm_hearts/gui/images/" + Integer.toString(value) + s + ".png" + "   =====nghia dep trai");
         }
-        downImage = new ImageIcon("..//gui//images//down.png").getImage();
+        downImage = new ImageIcon("src/lnm_hearts/gui/images/back.png").getImage();
         
         transform = new AffineTransform();
     }
+
+    public boolean isToPlay() {
+        return toPlay;
+    }
+
+    public void setToPlay(boolean toPlay) {
+        this.toPlay = toPlay;
+    }
+    
+    
+    
     
     /**
      * Draws the visual representation of the <code>Card</code> object.
@@ -101,17 +113,21 @@ public class Card extends GameElement{
         switch (orientation)
         {
             case Hand.NORTH:
+                //isUp = false;
                 transform.setToTranslation(getX() + getWidth(), getY() + getHeight());
                 transform.rotate(Math.PI);
                 break;
             case Hand.EAST:
+                //isUp = false;
                 transform.setToTranslation(getX(), getY() + getWidth());
                 transform.rotate(-Math.PI / 2);
                 break;
             case Hand.SOUTH:
+                isUp = true;
                 transform.setToTranslation(getX(), getY());
                 break;
             case Hand.WEST:
+                //isUp = false;
                 transform.setToTranslation(getX() + getHeight(), getY());
                 transform.rotate(Math.PI / 2);
                 break;

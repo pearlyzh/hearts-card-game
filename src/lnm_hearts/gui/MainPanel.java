@@ -178,6 +178,7 @@ public class MainPanel extends JPanel implements MouseListener,
         }
         else if (e.getSource().equals(dealTimer))
         {
+            System.out.println("Deal Time");
             deck.get(dealTimerIteration).setUp(true);
             hands[dealTimerIteration % 4].add(deck.get(dealTimerIteration));
             repaint();
@@ -236,6 +237,8 @@ public class MainPanel extends JPanel implements MouseListener,
                             if (!heartsBroken && c.getPointValue() > 0)
                                 heartsBroken = true;
                             
+                            c.setToPlay(true);
+                            
                             if (getError(c) != null)
                             {
                                 System.out.println(getError(c));
@@ -257,12 +260,14 @@ public class MainPanel extends JPanel implements MouseListener,
                                     c.setLocation(DIM.width / 2 - (c.getWidth() / 2),
                                         DIM.height / 2 - c.getHeight() - (c.getWidth() / 2) - 12 +
                                         (hands[k].getPosition() == Hand.NORTH ? 0 : c.getHeight() + c.getWidth()));
+                                    c.setToPlay(true);
                                     break;
                                 case Hand.WEST: // intentional fall-through
                                 case Hand.EAST:
                                     c.setLocation(DIM.width / 2 - c.getHeight() - (c.getWidth() / 2) +
                                             (hands[k].getPosition() == Hand.WEST ? 0 : c.getHeight() + c.getWidth()), 
                                             DIM.height / 2 - (c.getHeight() / 2));
+                                    c.setToPlay(true);
                                     break;
                             }
                         }
@@ -398,6 +403,8 @@ public class MainPanel extends JPanel implements MouseListener,
                         activeHand = k;
                         Card c = hands[k].get(cardToPlay(k));
 
+                        c.setToPlay(true);
+                        
                         trick[k] = c;
                         if (!heartsBroken && c.getPointValue() > 0)
                             heartsBroken = true;
@@ -413,6 +420,8 @@ public class MainPanel extends JPanel implements MouseListener,
                                     JOptionPane.YES_OPTION, JOptionPane.ERROR_MESSAGE);
                             System.exit(0);
                         }
+                        
+                        c.setToPlay(true);
                         
                         switch (hands[k].getPosition())
                         {
@@ -447,6 +456,7 @@ public class MainPanel extends JPanel implements MouseListener,
     
     private int[] cardsToSwap(int hand)
     {
+        System.out.println("Card to swap");
         ArrayList<Integer> cards = new ArrayList<Integer>(3);
         
         for (int i = 0; i < hands[hand].size(); i++)
@@ -823,6 +833,8 @@ public class MainPanel extends JPanel implements MouseListener,
                                             DIM.height / 2 - (c1.getHeight() / 2));
                                     break;
                             }
+                            
+                            c1.setToPlay(true);
                         }
                         hands[activeHand].setActive(false);
                         activeHand = -1;

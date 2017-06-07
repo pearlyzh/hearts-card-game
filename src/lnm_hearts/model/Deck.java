@@ -38,7 +38,7 @@ public class Deck {
                 default: suit = Card.HEART;
             }
             deck[i] = new Card(value, suit);
-            deck[i].setUp(false);
+            //deck[i].setUp(false);
         }
     }
     

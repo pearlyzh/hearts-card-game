@@ -93,19 +93,55 @@ public class Hand extends ArrayList<Card>{
             else
                 g2.setColor(Color.blue);
             g2.draw(border);
+            
+            System.out.println("ccccccccccccccc");
 
             switch (position)
             {
                 case NORTH: //intentional fall-through
-                case EAST:
-                    for (int i = this.size() - 1; i >= 0; i--)
+                    for (int i = 0; i < this.size(); i++)
+                    {
+                        if (this.get(i).isToPlay())
+                            this.get(i).setUp(true);
+                        else
+                            this.get(i).setUp(false);
                         this.get(i).paint(g);
+                    }
+                    break;
+                case EAST:
+//                    for (int i = this.size() - 1; i >= 0; i--)
+//                        this.get(i).paint(g);
+//                    break;
+                    for (int i = 0; i < this.size(); i++)
+                    {
+                        if (this.get(i).isToPlay())
+                            this.get(i).setUp(true);
+                        else
+                            this.get(i).setUp(false);
+                        this.get(i).paint(g);
+                    }
                     break;
 
                 case SOUTH: //intentional fall-through
-                case WEST:
                     for (int i = 0; i < this.size(); i++)
+                    {
+                        if (this.get(i).isToPlay())
+                            this.get(i).setUp(true);
+                        else
+                            this.get(i).setUp(false);
                         this.get(i).paint(g);
+                    }
+                    break;
+                case WEST:
+                    System.out.println("nghia - -- -  -" + this.size());
+                    for (int i = 0; i < this.size(); i++)
+                    {
+                        if (this.get(i).isToPlay())
+                            this.get(i).setUp(true);
+                        else
+                            this.get(i).setUp(false);
+                        this.get(i).paint(g);
+                    }
                     break;
             }
         }
