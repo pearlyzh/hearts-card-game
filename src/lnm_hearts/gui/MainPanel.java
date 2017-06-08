@@ -13,6 +13,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -63,12 +64,15 @@ public class MainPanel extends JPanel implements MouseListener,
     
     public MainPanel(JFrame parent)
     {
+        
         super();
         this.parent = parent;
         setPreferredSize(DIM);
-        setBackground(new Color(0, 127, 0));
+        // /setBackground(new Color(0, 127, 0));
         addMouseListener(this);
         addMouseMotionListener(this);
+        
+        
         
         arrowIcons = new ImageIcon[4];
         arrowIcons[0] = new ImageIcon("images/arrowUp.png");
@@ -114,6 +118,11 @@ public class MainPanel extends JPanel implements MouseListener,
     {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+        
+        //Graphics2D g2 = (Graphics2D)getGraphics();
+        Image backgroundImage = new ImageIcon("src/lnm_hearts/gui/images/background.jpg").getImage();
+        g2.drawImage(backgroundImage, null, null);
+
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         textBubble.paint(g2);
@@ -279,6 +288,9 @@ public class MainPanel extends JPanel implements MouseListener,
                 }
             }
             
+
+            
+
             repaint();
         }
         else if (e.getSource().equals(bubbleFadeTimer))
@@ -895,7 +907,10 @@ public class MainPanel extends JPanel implements MouseListener,
         {
             if (visible)
             {
+                //draw here
+
                 Graphics2D g2 = (Graphics2D)g;
+                
                 g2.setFont(font);
                 FontMetrics fontMetrics = g2.getFontMetrics(font);
                 int width = fontMetrics.stringWidth(text);

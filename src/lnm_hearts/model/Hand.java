@@ -12,6 +12,8 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +28,7 @@ public class Hand extends ArrayList<Card>{
     
     private final int cardGap = 22;
     private int position;
-    private RoundRectangle2D border;
+    private Rectangle2D border;
     private boolean active = false;
     private Dimension screenSize;
     private int points = 0, roundPoints = 0;
@@ -44,17 +46,17 @@ public class Hand extends ArrayList<Card>{
         
         switch (position)
         {
-            case NORTH: border = new RoundRectangle2D.Float(d.width/6.0f, 5.0f,
-                    d.height * 2.0f/3.0f, 100.0f, 30.0f, 30.0f);
+            case NORTH: border = new Rectangle2D.Float(d.width/6.0f, 5.0f,
+                    d.height * 2.0f/3.0f, 100.0f);
                 break;
-            case EAST: border = new RoundRectangle2D.Float(d.width - 105.0f,
-                    d.width/6.0f, 100.0f, d.width * 2.0f/3.0f, 30.0f, 30.0f);
+            case EAST: border = new Rectangle2D.Float(d.width - 105.0f,
+                    d.width/6.0f, 100.0f, d.width * 2.0f/3.0f);
                 break;
-            case SOUTH: border = new RoundRectangle2D.Float(d.width/6.0f,
-                    d.height - 105.0f, d.height * 2.0f/3.0f, 100.0f, 30.0f, 30.0f);
+            case SOUTH: border = new Rectangle2D.Float(d.width/6.0f,
+                    d.height - 105.0f, d.height * 2.0f/3.0f, 100.0f);
                 break;
-            case WEST: border = new RoundRectangle2D.Float(5.0f, d.width/6.0f,
-                    100.0f, d.width * 2.0f/3.0f, 30.0f, 30.0f);
+            case WEST: border = new Rectangle2D.Float(5.0f, d.width/6.0f,
+                    100.0f, d.width * 2.0f/3.0f);
                 break;
             default: throw new IllegalArgumentException("Position must be one " +
                     "of the following valid constants: NORTH, EAST, SOUTH, or WEST");
@@ -82,42 +84,38 @@ public class Hand extends ArrayList<Card>{
 
             if (active)
                 g2.setPaint(new GradientPaint((float)border.getX(), (float)border.getY(), new Color(90, 230, 30),
-                    (float)(border.getX() + border.getWidth()), (float)(border.getY() + border.getHeight()), new Color(90, 230, 30, 180)));
+                    (float)(border.getX() + border.getWidth()), (float)(border.getY() + border.getHeight()), new Color(255, 230, 30, 180)));
             else
-                g2.setPaint(new GradientPaint((float)border.getX(), (float)border.getY(), new Color(46, 184, 0),
-                    (float)(border.getX() + border.getWidth()), (float)(border.getY() + border.getHeight()), new Color(0, 184, 46, 0)));
-            g2.fill(border);
+               g2.setPaint(new GradientPaint((float)border.getX(), (float)border.getY(), new Color(255, 255, 0),
+                    (float)(border.getX() + border.getWidth()), (float)(border.getY() + border.getHeight()), new Color(0, 255, 255, 0)));
+            //g2.fill(border);
 
             if (active)
                 g2.setColor(Color.white);
             else
                 g2.setColor(Color.blue);
-            g2.draw(border);
+            //g2.draw(border);
             
-            System.out.println("ccccccccccccccc");
+            System.out.println("ccccccccccccccc");      
 
             switch (position)
             {
                 case NORTH: //intentional fall-through
                     for (int i = 0; i < this.size(); i++)
                     {
+                        this.get(i).setUp(false);
                         if (this.get(i).isToPlay())
                             this.get(i).setUp(true);
-                        else
-                            this.get(i).setUp(false);
+                        
                         this.get(i).paint(g);
                     }
                     break;
                 case EAST:
-//                    for (int i = this.size() - 1; i >= 0; i--)
-//                        this.get(i).paint(g);
-//                    break;
                     for (int i = 0; i < this.size(); i++)
                     {
+                        this.get(i).setUp(false);
                         if (this.get(i).isToPlay())
                             this.get(i).setUp(true);
-                        else
-                            this.get(i).setUp(false);
                         this.get(i).paint(g);
                     }
                     break;
@@ -125,10 +123,9 @@ public class Hand extends ArrayList<Card>{
                 case SOUTH: //intentional fall-through
                     for (int i = 0; i < this.size(); i++)
                     {
+                        this.get(i).setUp(false);
                         if (this.get(i).isToPlay())
                             this.get(i).setUp(true);
-                        else
-                            this.get(i).setUp(false);
                         this.get(i).paint(g);
                     }
                     break;
@@ -136,10 +133,9 @@ public class Hand extends ArrayList<Card>{
                     System.out.println("nghia - -- -  -" + this.size());
                     for (int i = 0; i < this.size(); i++)
                     {
+                        this.get(i).setUp(false);
                         if (this.get(i).isToPlay())
                             this.get(i).setUp(true);
-                        else
-                            this.get(i).setUp(false);
                         this.get(i).paint(g);
                     }
                     break;

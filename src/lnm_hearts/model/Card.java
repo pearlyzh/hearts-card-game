@@ -19,7 +19,7 @@ import java.awt.geom.Rectangle2D;
  *
  * @author NghiaTruongNgoc
  */
-public class Card extends GameElement{
+public class Card extends GameElement {
     /** The suit constant that indicates a club. */
     public final static int CLUB = 1;
     /** The suit constant that indicates a spade. */

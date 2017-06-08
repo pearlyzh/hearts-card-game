@@ -76,6 +76,13 @@ public class Deck {
             int r2 = (int)(Math.random() * deck.length);
             swap(r1, r2);
         }
+
+        for (int i = 0; i < deck.length; i++)
+        {
+            System.out.println("shuffle");
+            deck[i].setUp(false);
+            deck[i].setToPlay(false);
+        }
     }
     
     private synchronized void swap(int c1, int c2)
